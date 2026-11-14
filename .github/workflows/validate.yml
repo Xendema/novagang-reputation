@@ -1,0 +1,22 @@
+name: Validate reputation
+
+on:
+  push:
+    paths:
+      - 'reputation.json'
+  pull_request:
+    paths:
+      - 'reputation.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check JSON structure
+        run: node scripts/validate.js reputation.json
